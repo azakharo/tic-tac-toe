@@ -1,5 +1,6 @@
 
-export function Square({ value, onSquareClick }: {value: string; onSquareClick?: () => void}) {
+
+export function Square({ value, onSquareClick }: {value: SquareValue; onSquareClick: (index: number) => void}) {
   return (
     <button
       style={{
@@ -14,7 +15,7 @@ export function Square({ value, onSquareClick }: {value: string; onSquareClick?:
         fontSize: '1rem',
         fontWeight: 'bold',
       }}
-      onClick={onSquareClick}
+      onClick={() => onSquareClick}
     >
       {value}
     </button>
