@@ -2,7 +2,7 @@ import {memo} from 'react';
 import {Box} from '@mui/material';
 
 import errorImg from '@images/sad-cloud.png';
-import Board from '@/components/Board';
+import Game from '@/components/Game';
 
 const areaColor = '#e2deed';
 
@@ -69,7 +69,7 @@ const Main = () => {
           ...asideMainCommonStyles,
         }}
       >
-        <Board />
+        <Game />
       </Box>
       <Box
         component="footer"

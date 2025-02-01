@@ -1,18 +1,19 @@
 import {combine} from "zustand/middleware";
 import {create} from "zustand/react";
 
-type NextSquareFunc = (squares: SquareValue[]) => SquareValue[];
+type NextHistoryFunc = (squares: SquareValue[]) => SquareValue[];
 type NextXIsNextFunc = (isXNext: boolean) => boolean;
 
 export const useGameStore = create(
-  combine({ squares: Array(9).fill(null), xIsNext: true }, (set) => {
+  combine({ history: [Array(9).fill(null)], xIsNext: true }, (set) => {
     return {
-      setSquares: (nextSquares: SquareValue[] | NextSquareFunc) => {
+      setHistory: (nextHistory: SquareValue[]) => {
         set((state) => ({
-          squares:
-            typeof nextSquares === 'function'
-              ? nextSquares(state.squares)
-              : nextSquares,
+          history:
+            typeof nextHistory === 'function'
+              // @ts-ignore
+              ? nextHistory(state.history)
+              : nextHistory,
         }))
       },
       setXIsNext: (nextXIsNext: boolean | NextXIsNextFunc) => {
