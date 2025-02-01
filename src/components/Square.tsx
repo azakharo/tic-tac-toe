@@ -15,7 +15,8 @@ export function Square({ value, onSquareClick }: {value: SquareValue; onSquareCl
         fontSize: '1rem',
         fontWeight: 'bold',
       }}
-      onClick={() => onSquareClick}
+      // @ts-ignore
+      onClick={onSquareClick}
     >
       {value}
     </button>
