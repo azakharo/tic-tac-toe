@@ -2,6 +2,7 @@ import {memo} from 'react';
 import {Box} from '@mui/material';
 
 import errorImg from '@images/sad-cloud.png';
+import Board from '@/components/Board';
 
 const areaColor = '#e2deed';
 
@@ -68,8 +69,7 @@ const Main = () => {
           ...asideMainCommonStyles,
         }}
       >
-        <Box display="flex" flexWrap="wrap" gap={2}>
-        </Box>
+        <Board />
       </Box>
       <Box
         component="footer"
