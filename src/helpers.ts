@@ -1,7 +1,8 @@
-import {SquareValue} from "./types";
+import {SquareValue} from './types';
 
+// Returns X, O or null if there is no winner
 export function calculateWinner(squares: SquareValue[]): SquareValue {
-  const lines = [
+  const winCombinations = [
     [0, 1, 2],
     [3, 4, 5],
     [6, 7, 8],
@@ -10,24 +11,38 @@ export function calculateWinner(squares: SquareValue[]): SquareValue {
     [2, 5, 8],
     [0, 4, 8],
     [2, 4, 6],
-  ]
+  ];
 
-  for (let i = 0; i < lines.length; i++) {
-    const [a, b, c] = lines[i] as number[]
-    if (squares[a!] && squares[a!] === squares[b!] && squares[a!] === squares[c!]) {
+  for (let i = 0; i < winCombinations.length; i++) {
+    const [a, b, c] = winCombinations[i] as number[];
+    if (
+      squares[a!] &&
+      squares[a!] === squares[b!] &&
+      squares[a!] === squares[c!]
+    ) {
       return squares[a!] as SquareValue;
     }
   }
 
-  return null
+  return null;
 }
 
-export function calculateTurns(squares: SquareValue[]): number {
-  return squares.filter((square) => !square).length
+export function calculateTurnsLeft(squares: SquareValue[]): number {
+  return squares.filter(square => !square).length;
 }
 
-export function calculateStatus(winner: SquareValue, turns: number, player: SquareValue) {
-  if (!winner && !turns) return 'Draw'
-  if (winner) return `Winner ${winner}`
-  return `Next player: ${player}`
+export function calculateStatusString(
+  winner: SquareValue,
+  turns: number,
+  nextPlayer: 'X' | 'O',
+): string {
+  if (winner) {
+    return `Winner ${winner}`;
+  }
+
+  if (!turns) {
+    return 'Draw';
+  }
+
+  return `Next player: ${nextPlayer}`;
 }

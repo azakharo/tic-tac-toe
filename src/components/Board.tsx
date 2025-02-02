@@ -1,5 +1,5 @@
 import {Square} from './Square';
-import {calculateStatus, calculateTurns, calculateWinner} from '@/helpers';
+import {calculateStatusString, calculateTurnsLeft, calculateWinner} from '@/helpers';
 import {SquareValue} from "@/types";
 
 interface Props {
@@ -10,9 +10,9 @@ interface Props {
 
 export default function Board({ xIsNext, squares, onPlay }: Props) {
   const winner = calculateWinner(squares);
-  const turns = calculateTurns(squares);
+  const turns = calculateTurnsLeft(squares);
   const player = xIsNext ? 'X' : 'O';
-  const status = calculateStatus(winner, turns, player);
+  const status = calculateStatusString(winner, turns, player);
 
   function handleClick(i: number) {
     if (squares[i] || winner) return;
