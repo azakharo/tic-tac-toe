@@ -1,31 +1,27 @@
-import {combine} from "zustand/middleware";
-import {create} from "zustand/react";
+import {create} from 'zustand/react';
+import {SquareValue} from '../types';
 
-export const useGameStore = create(
-  combine({ history: [Array(9).fill(null)], currentMove: 0, }, (set) => {
-    return {
-      setHistory: (nextHistory: SquareValue[]) => {
-        set(state => ({
-          history:
-            typeof nextHistory === 'function'
-              ? // @ts-ignore
-                nextHistory(state.history)
-              : nextHistory,
-        }));
-      },
-      setCurrentMove: (
-        nextCurrentMove:
-          | number
-          | ((arg0: number) => number | undefined)
-          | undefined,
-      ) => {
-        set(state => ({
-          currentMove:
-            typeof nextCurrentMove === 'function'
-              ? nextCurrentMove(state.currentMove)
-              : nextCurrentMove,
-        }));
-      },
-    };
-  }),
-);
+interface State {
+  history: SquareValue[][];
+  currentMove: number;
+}
+
+interface Actions {
+  setHistory: (newHistory: SquareValue[][]) => void;
+  setCurrentMove: (index: number) => void;
+}
+
+export const useGameStore = create<State & Actions>()(set => ({
+  history: [Array(9).fill(null)],
+  currentMove: 0,
+  setHistory: nextHistory => {
+    set(() => ({
+      history: nextHistory,
+    }));
+  },
+  setCurrentMove: nextCurrentMove => {
+    set(() => ({
+      currentMove: nextCurrentMove,
+    }));
+  },
+}));

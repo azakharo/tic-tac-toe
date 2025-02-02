@@ -1,5 +1,6 @@
 import Board from "./Board";
 import {useGameStore} from "@/hooks/useGameStore";
+import {SquareValue} from "@/types";
 
 export default function Game() {
   const history = useGameStore((state) => state.history)
