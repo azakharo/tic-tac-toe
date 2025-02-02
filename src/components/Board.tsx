@@ -1,6 +1,6 @@
 import {Square} from './Square';
-import {useGameStore} from '@/hooks/useGameStore';
 import {calculateStatus, calculateTurns, calculateWinner} from '@/helpers';
+import {SquareValue} from "@/types";
 
 interface Props {
  xIsNext: boolean;
