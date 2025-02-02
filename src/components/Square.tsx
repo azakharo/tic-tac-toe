@@ -19,6 +19,8 @@ export function Square({ value, onSquareClick }: Props) {
         borderRadius: 0,
         fontSize: '1rem',
         fontWeight: 'bold',
+        // Solved issue with double borders
+        margin: '-1px 0 0 -1px',
       }}
       onClick={() => onSquareClick()}
     >
