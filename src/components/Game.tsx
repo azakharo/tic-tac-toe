@@ -4,14 +4,20 @@ import {useGameStore} from "@/hooks/useGameStore";
 export default function Game() {
   const history = useGameStore((state) => state.history)
   const setHistory = useGameStore((state) => state.setHistory)
-  const xIsNext = useGameStore((state) => state.xIsNext)
-  const setXIsNext = useGameStore((state) => state.setXIsNext)
-  const currentSquares = history[history.length - 1] as SquareValue[];
+  const currentMove = useGameStore((state) => state.currentMove)
+  const setCurrentMove = useGameStore((state) => state.setCurrentMove)
+  const currentSquares = history[currentMove] as SquareValue[];
+  const xIsNext = currentMove % 2 === 0
 
   function handlePlay(nextSquares: SquareValue[]) {
+    const nextHistory = history.slice(0, currentMove + 1).concat([nextSquares])
     // @ts-ignore
-    setHistory(history.concat([nextSquares]));
-    setXIsNext(!xIsNext)
+    setHistory(nextHistory)
+    setCurrentMove(nextHistory.length - 1)
+  }
+
+  function jumpTo(nextMove: number) {
+    setCurrentMove(nextMove)
   }
 
   return (
@@ -23,11 +29,24 @@ export default function Game() {
       }}
     >
       <div>
-        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
+        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay}/>
       </div>
-      <div style={{ marginLeft: '1rem' }}>
-        <ol>{/* TODO */}</ol>
-      </div>
+      <ol style={{marginLeft: '5rem'}}>
+        {history.map((_, historyIndex) => {
+          const description =
+            historyIndex > 0
+              ? `Go to move #${historyIndex}`
+              : 'Go to game start'
+
+          return (
+            <li key={historyIndex}>
+              <button onClick={() => jumpTo(historyIndex)}>
+                {description}
+              </button>
+            </li>
+          )
+        })}
+      </ol>
     </div>
   )
 }
