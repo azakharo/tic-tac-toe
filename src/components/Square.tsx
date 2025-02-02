@@ -1,6 +1,11 @@
+import {SquareValue} from "@/types";
 
+interface Props {
+  value: SquareValue;
+  onSquareClick: () => void
+}
 
-export function Square({ value, onSquareClick }: {value: SquareValue; onSquareClick: (index: number) => void}) {
+export function Square({ value, onSquareClick }: Props) {
   return (
     <button
       style={{
@@ -15,8 +20,7 @@ export function Square({ value, onSquareClick }: {value: SquareValue; onSquareCl
         fontSize: '1rem',
         fontWeight: 'bold',
       }}
-      // @ts-ignore
-      onClick={onSquareClick}
+      onClick={() => onSquareClick()}
     >
       {value}
     </button>
