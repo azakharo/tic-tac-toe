@@ -30,22 +30,26 @@ export default function Game() {
         <Board nextPlayer={nextPlayer} squares={currentSquares} onSquaresChange={handleSquaresChange}/>
       </div>
 
-      <ol style={{marginLeft: '5rem'}}>
-        {history.map((_, historyIndex) => {
-          const description =
-            historyIndex > 0
-              ? `Go to move #${historyIndex}`
-              : 'Go to game start'
+      <div style={{marginLeft: '5rem', minHeight: 300}}>
+        <div style={{marginBottom: 8}}>History:</div>
 
-          return (
-            <li key={historyIndex}>
-              <button onClick={() => jumpTo(historyIndex)}>
-                {description}
-              </button>
-            </li>
-          )
-        })}
-      </ol>
+        <ol>
+          {history.map((_, historyIndex) => {
+            const description =
+              historyIndex > 0
+                ? `Go to move #${historyIndex}`
+                : 'Go to game start'
+
+            return (
+              <li key={historyIndex} style={{marginBottom: 8}}>
+                <button onClick={() => jumpTo(historyIndex)}>
+                  {description}
+                </button>
+              </li>
+            )
+          })}
+        </ol>
+      </div>
     </div>
   )
 }

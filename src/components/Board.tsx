@@ -17,6 +17,7 @@ export default function Board({ nextPlayer, squares, onSquaresChange }: Props) {
     if (squares[i] || winner) {
       return;
     }
+
     const nextSquares = squares.slice();
     nextSquares[i] = nextPlayer;
     onSquaresChange(nextSquares);
