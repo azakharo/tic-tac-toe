@@ -7,17 +7,22 @@ interface State {
 }
 
 interface Actions {
-  setHistory: (newHistory: SquareValue[][]) => void;
+  addToHistory: (squares: SquareValue[]) => void;
   setCurrentMoveIndex: (index: number) => void;
 }
 
 export const useGameStore = create<State & Actions>()(set => ({
   history: [Array(9).fill(null)],
   currentMoveIndex: 0,
-  setHistory: nextHistory => {
-    set(() => ({
-      history: nextHistory,
-    }));
+  addToHistory: squares => {
+    set(state => {
+      const nextHistory = state.history.slice(0, state.currentMoveIndex + 1).concat([squares])
+
+      return {
+        history: nextHistory,
+        currentMoveIndex: nextHistory.length - 1,
+      };
+    });
   },
   setCurrentMoveIndex: nextCurrentMove => {
     set(() => ({

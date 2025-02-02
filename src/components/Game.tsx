@@ -3,17 +3,15 @@ import {useGameStore} from "@/hooks/useGameStore";
 import {SquareValue} from "@/types";
 
 export default function Game() {
-  const history = useGameStore(state => state.history)
-  const setHistory = useGameStore(state => state.setHistory)
+  const history = useGameStore(state => state.history);
+  const addToHistory = useGameStore(state => state.addToHistory)
   const currentMoveIndex = useGameStore(state => state.currentMoveIndex)
   const setCurrentMoveIndex = useGameStore(state => state.setCurrentMoveIndex)
   const currentSquares = history[currentMoveIndex]!;
   const nextPlayer = currentMoveIndex % 2 === 0 ? 'X' : 'O';
 
-  function handleSquaresChange(nextSquares: SquareValue[]) {
-    const nextHistory = history.slice(0, currentMoveIndex + 1).concat([nextSquares])
-    setHistory(nextHistory)
-    setCurrentMoveIndex(nextHistory.length - 1)
+  function handleSquaresChange(newSquares: SquareValue[]) {
+    addToHistory(newSquares);
   }
 
   function jumpTo(moveIndex: number) {
