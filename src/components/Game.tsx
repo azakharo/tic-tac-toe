@@ -3,22 +3,21 @@ import {useGameStore} from "@/hooks/useGameStore";
 import {SquareValue} from "@/types";
 
 export default function Game() {
-  const history = useGameStore((state) => state.history)
-  const setHistory = useGameStore((state) => state.setHistory)
-  const currentMove = useGameStore((state) => state.currentMoveIndex)
-  const setCurrentMove = useGameStore((state) => state.setCurrentMoveIndex)
-  const currentSquares = history[currentMove] as SquareValue[];
-  const nextPlayer = currentMove % 2 === 0 ? 'X' : 'O';
+  const history = useGameStore(state => state.history)
+  const setHistory = useGameStore(state => state.setHistory)
+  const currentMoveIndex = useGameStore(state => state.currentMoveIndex)
+  const setCurrentMoveIndex = useGameStore(state => state.setCurrentMoveIndex)
+  const currentSquares = history[currentMoveIndex]!;
+  const nextPlayer = currentMoveIndex % 2 === 0 ? 'X' : 'O';
 
-  function handlePlay(nextSquares: SquareValue[]) {
-    const nextHistory = history.slice(0, currentMove + 1).concat([nextSquares])
-    // @ts-ignore
+  function handleSquaresChange(nextSquares: SquareValue[]) {
+    const nextHistory = history.slice(0, currentMoveIndex + 1).concat([nextSquares])
     setHistory(nextHistory)
-    setCurrentMove(nextHistory.length - 1)
+    setCurrentMoveIndex(nextHistory.length - 1)
   }
 
-  function jumpTo(nextMove: number) {
-    setCurrentMove(nextMove)
+  function jumpTo(moveIndex: number) {
+    setCurrentMoveIndex(moveIndex)
   }
 
   return (
@@ -30,7 +29,7 @@ export default function Game() {
       }}
     >
       <div>
-        <Board nextPlayer={nextPlayer} squares={currentSquares} onSquaresChange={handlePlay}/>
+        <Board nextPlayer={nextPlayer} squares={currentSquares} onSquaresChange={handleSquaresChange}/>
       </div>
 
       <ol style={{marginLeft: '5rem'}}>

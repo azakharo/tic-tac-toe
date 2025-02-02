@@ -37,7 +37,7 @@ export function calculateStatusString(
   nextPlayer: 'X' | 'O',
 ): string {
   if (winner) {
-    return `Winner ${winner}`;
+    return `Winner: ${winner}`;
   }
 
   if (!turns) {
