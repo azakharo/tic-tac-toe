@@ -5,8 +5,8 @@ import {SquareValue} from "@/types";
 export default function Game() {
   const history = useGameStore((state) => state.history)
   const setHistory = useGameStore((state) => state.setHistory)
-  const currentMove = useGameStore((state) => state.currentMove)
-  const setCurrentMove = useGameStore((state) => state.setCurrentMove)
+  const currentMove = useGameStore((state) => state.currentMoveIndex)
+  const setCurrentMove = useGameStore((state) => state.setCurrentMoveIndex)
   const currentSquares = history[currentMove] as SquareValue[];
   const xIsNext = currentMove % 2 === 0
 

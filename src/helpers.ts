@@ -1,3 +1,5 @@
+import {SquareValue} from "./types";
+
 export function calculateWinner(squares: SquareValue[]): SquareValue {
   const lines = [
     [0, 1, 2],
