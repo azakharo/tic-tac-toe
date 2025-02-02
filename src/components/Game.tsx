@@ -8,7 +8,7 @@ export default function Game() {
   const currentMove = useGameStore((state) => state.currentMoveIndex)
   const setCurrentMove = useGameStore((state) => state.setCurrentMoveIndex)
   const currentSquares = history[currentMove] as SquareValue[];
-  const xIsNext = currentMove % 2 === 0
+  const nextPlayer = currentMove % 2 === 0 ? 'X' : 'O';
 
   function handlePlay(nextSquares: SquareValue[]) {
     const nextHistory = history.slice(0, currentMove + 1).concat([nextSquares])
@@ -30,8 +30,9 @@ export default function Game() {
       }}
     >
       <div>
-        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay}/>
+        <Board nextPlayer={nextPlayer} squares={currentSquares} onSquaresChange={handlePlay}/>
       </div>
+
       <ol style={{marginLeft: '5rem'}}>
         {history.map((_, historyIndex) => {
           const description =

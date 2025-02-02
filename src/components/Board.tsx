@@ -3,27 +3,28 @@ import {calculateStatusString, calculateTurnsLeft, calculateWinner} from '@/help
 import {SquareValue} from "@/types";
 
 interface Props {
- xIsNext: boolean;
+ nextPlayer: 'X' | 'O';
  squares: SquareValue[];
- onPlay: (newSquares: SquareValue[]) => void;
+  onSquaresChange: (newSquares: SquareValue[]) => void;
 }
 
-export default function Board({ xIsNext, squares, onPlay }: Props) {
+export default function Board({ nextPlayer, squares, onSquaresChange }: Props) {
   const winner = calculateWinner(squares);
-  const turns = calculateTurnsLeft(squares);
-  const player = xIsNext ? 'X' : 'O';
-  const status = calculateStatusString(winner, turns, player);
+  const turnsLeft = calculateTurnsLeft(squares);
+  const statusString = calculateStatusString(winner, turnsLeft, nextPlayer);
 
   function handleClick(i: number) {
-    if (squares[i] || winner) return;
+    if (squares[i] || winner) {
+      return;
+    }
     const nextSquares = squares.slice();
-    nextSquares[i] = player;
-    onPlay(nextSquares);
+    nextSquares[i] = nextPlayer;
+    onSquaresChange(nextSquares);
   }
 
   return (
     <>
-      <div style={{marginBottom: '0.5rem'}}>{status}</div>
+      <div style={{marginBottom: '0.5rem'}}>{statusString}</div>
 
       <div
         style={{
